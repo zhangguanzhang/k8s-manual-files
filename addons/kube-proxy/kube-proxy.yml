@@ -73,7 +73,7 @@ data:
     clusters:
     - cluster:
         certificate-authority: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-        server: {KUBE_APISERVER}
+        server: {{KUBE_APISERVER}}
       name: default
     contexts:
     - context:
