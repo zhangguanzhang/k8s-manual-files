@@ -1,4 +1,4 @@
-nd: EncryptionConfig
+kind: EncryptionConfig
 apiVersion: v1
 resources:
   - resources:
@@ -7,5 +7,5 @@ resources:
       - aescbc:
           keys:
             - name: key1
-              secret: ${ENCRYPT_SECRET}
+              secret: {{ ENCRYPT_SECRET }}
       - identity: {}

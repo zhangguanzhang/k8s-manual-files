@@ -1,4 +1,4 @@
-name: '${HOSTNAME}'
+name: '{HOSTNAME}'
 data-dir: /var/lib/etcd
 wal-dir: /var/lib/etcd/wal
 snapshot-count: 10000
@@ -10,13 +10,13 @@ listen-client-urls: 'https://0.0.0.0:2379'
 max-snapshots: 5
 max-wals: 5
 cors:
-initial-advertise-peer-urls: 'https://${PUBLIC_IP}:2380'
-advertise-client-urls: 'https://${PUBLIC_IP}:2379'
+initial-advertise-peer-urls: 'https://{PUBLIC_IP}:2380'
+advertise-client-urls: 'https://{PUBLIC_IP}:2379'
 discovery:
 discovery-fallback: 'proxy'
 discovery-proxy:
 discovery-srv:
-initial-cluster: 'k8s-m1=https://192.168.126.111:2380,k8s-m2=https://192.168.126.112:2380,k8s-m3=https://192.168.126.113:2380'
+initial-cluster: '{{ etcd_initial_cluster }}'
 initial-cluster-token: 'etcd-k8s-cluster'
 initial-cluster-state: 'new'
 strict-reconfig-check: false

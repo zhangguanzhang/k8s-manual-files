@@ -21,10 +21,10 @@ spec:
       - --bind-address=0.0.0.0
       - --secure-port=5443
       - --insecure-port=0
-      - --advertise-address=192.168.126.110
+      - --advertise-address={{ VIP }}
       - --service-cluster-ip-range=10.96.0.0/12
       - --service-node-port-range=30000-32767
-      - --etcd-servers=https://192.168.126.111:2379,https://192.168.126.112:2379,https://192.168.126.113:2379
+      - --etcd-servers={{ etcd_servers }}
       - --etcd-cafile=/etc/etcd/ssl/etcd-ca.pem
       - --etcd-certfile=/etc/etcd/ssl/etcd.pem
       - --etcd-keyfile=/etc/etcd/ssl/etcd-key.pem
