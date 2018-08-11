@@ -20,8 +20,8 @@ metadata:
 spec:
   replicas: 1
   selector:
-  matchLabels:
-    k8s-app: calicoctl
+    matchLabels:
+      k8s-app: calicoctl
   template:
     metadata:
       name: calicoctl
