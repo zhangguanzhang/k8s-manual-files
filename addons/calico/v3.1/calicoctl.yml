@@ -23,6 +23,8 @@ spec:
     metadata:
       name: calicoctl
       namespace: kube-system
+    labels:
+      k8s-app: calicoctl
     spec:
       hostNetwork: true
       serviceAccountName: calicoctl
