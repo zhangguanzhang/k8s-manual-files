@@ -10,23 +10,30 @@ metadata:
   namespace: kube-system
 
 ---
-
-apiVersion: v1
-kind: Pod
+apiVersion: extensions/v1beta1
+kind: DaemonSet
 metadata:
   name: calicoctl
   namespace: kube-system
+  labels:
+    k8s-app: calicoctl
 spec:
-  hostNetwork: true
-  serviceAccountName: calicoctl
-  containers:
-  - name: calicoctl
-    image: quay.io/calico/ctl:v3.1.3
-    tty: true
-    command: ["/bin/sh"]
-    env:
-    - name: DATASTORE_TYPE
-      value: kubernetes
+  replicas: 1
+  template:
+    metadata:
+      name: calicoctl
+      namespace: kube-system
+    spec:
+      hostNetwork: true
+      serviceAccountName: calicoctl
+      containers:
+      - name: calicoctl
+        image: quay.io/calico/ctl:v3.1.3
+        tty: true
+        command: ["/bin/sh"]
+        env:
+        - name: DATASTORE_TYPE
+          value: kubernetes
 
 ---
 
