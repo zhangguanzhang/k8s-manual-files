@@ -8,7 +8,7 @@ metadata:
 spec:
   type: LoadBalancer
   externalIPs:
-  - ${DNS_VIP}
+  - {{ INGRESS_VIP }}
   ports:
   - name: dns
     port: 53
