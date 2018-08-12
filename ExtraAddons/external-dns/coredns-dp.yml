@@ -1,10 +1,10 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  labels:
-    k8s-app: coredns
   name: coredns
   namespace: external-dns
+  labels:
+    k8s-app: coredns
 spec:
   replicas: 1
   selector:
