@@ -33,7 +33,7 @@ spec:
         key: node-role.kubernetes.io/master
       containers:
       - name: coredns
-        image: coredns/coredns:1.2.0
+        image: coredns/coredns:1.1.4
         args:
         - -conf
         - /etc/coredns/Corefile
