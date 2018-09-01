@@ -6,9 +6,9 @@
   },
   "names": [
     {
-      "C": "TW",
-      "L": "Taipei",
-      "ST": "Taipei",
+      "C": "CN",
+      "L": "Hangzhou",
+      "ST": "Hangzhou",
       "O": "system:nodes",
       "OU": "Kubernetes-manual"
     }
