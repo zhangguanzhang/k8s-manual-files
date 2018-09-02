@@ -80,22 +80,32 @@ spec:
       k8s-app: kube-dns
   template:
     metadata:
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ""
       labels:
         k8s-app: kube-dns
     spec:
       serviceAccountName: coredns
+      priorityClassName: system-cluster-critical
       tolerations:
-        - key: "CriticalAddonsOnly"
-          operator: "Exists"
+      - key: CriticalAddonsOnly
+        operator: Exists
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
       containers:
       - name: coredns
         image: coredns/coredns:1.2.0
         imagePullPolicy: IfNotPresent
         args: [ "-conf", "/etc/coredns/Corefile" ]
-        volumeMounts:
-        - name: config-volume
-          mountPath: /etc/coredns
-          readOnly: true
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 60
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 5
         ports:
         - containerPort: 53
           name: dns
@@ -106,6 +116,12 @@ spec:
         - containerPort: 9153
           name: metrics
           protocol: TCP
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 70Mi
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -114,23 +130,23 @@ spec:
             drop:
             - all
           readOnlyRootFilesystem: true
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 60
-          timeoutSeconds: 5
-          successThreshold: 1
-          failureThreshold: 5
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/coredns
+          readOnly: true
+        - name: host-time
+          mountPath: /etc/localtime
       dnsPolicy: Default
       volumes:
-        - name: config-volume
-          configMap:
-            name: coredns
-            items:
-            - key: Corefile
-              path: Corefile
+      - name: host-time
+        hostPath:
+          path: /etc/localtime
+      - name: config-volume
+        configMap:
+          name: coredns
+          items:
+          - key: Corefile
+            path: Corefile
 ---
 apiVersion: v1
 kind: Service
@@ -147,7 +163,7 @@ metadata:
 spec:
   selector:
     k8s-app: kube-dns
-  clusterIP: 10.96.1.10
+  clusterIP: 10.96.0.10
   ports:
   - name: dns
     port: 53
