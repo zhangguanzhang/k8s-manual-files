@@ -5,7 +5,6 @@ After=network.target
 
 [Service]
 ExecStart=/usr/local/bin/kube-controller-manager \
-      - kube-controller-manager \
       --v=2 \
       --logtostderr=true \
       --address=127.0.0.1 \
