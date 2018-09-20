@@ -1,13 +1,13 @@
 name: '{HOSTNAME}'
 data-dir: /var/lib/etcd
 wal-dir: /var/lib/etcd/wal
-snapshot-count: 10000
+snapshot-count: 5000
 heartbeat-interval: 100
 election-timeout: 1000
 quota-backend-bytes: 0
 listen-peer-urls: 'https://0.0.0.0:2380'
 listen-client-urls: 'https://0.0.0.0:2379'
-max-snapshots: 5
+max-snapshots: 3
 max-wals: 5
 cors:
 initial-advertise-peer-urls: 'https://{PUBLIC_IP}:2380'
