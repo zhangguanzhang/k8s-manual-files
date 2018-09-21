@@ -6,7 +6,7 @@ After=network.target
 [Service]
 ExecStart=/usr/local/bin/kube-proxy \
   --kubeconfig=/etc/kubernetes/kube-proxy.kubeconfig \
-  --config=/etc/kubernetes/kube-proxy.conf
+  --config=/etc/kubernetes/kube-proxy.conf \
   --v=2
 
 Restart=always
