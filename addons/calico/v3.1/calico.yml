@@ -192,9 +192,6 @@ spec:
           operator: Exists
         - effect: NoExecute
           operator: Exists
-        - key: node.kubernetes.io/not-ready
-          operator: Exists
-          effect: NoSchedule
       serviceAccountName: calico-node
       # Minimize downtime during a rolling upgrade or deletion; tell Kubernetes to do a "force
       # deletion": https://kubernetes.io/docs/concepts/workloads/pods/pod/#termination-of-pods.
