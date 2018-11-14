@@ -31,7 +31,6 @@ ExecStart=/usr/local/bin/kube-apiserver \
       --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.pem  \
       --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.pem  \
       --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client-key.pem  \
-      --enable-aggregator-routing=true
       --requestheader-allowed-names=aggregator  \
       --requestheader-group-headers=X-Remote-Group  \
       --requestheader-extra-headers-prefix=X-Remote-Extra-  \
