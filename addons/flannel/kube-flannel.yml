@@ -174,7 +174,7 @@ spec:
         args:
         - --ip-masq
         - --kube-subnet-mgr
-        - --iface=enp0s8
+        - --iface={{ interface }}
         resources:
           requests:
             cpu: "100m"
