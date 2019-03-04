@@ -6,7 +6,7 @@ Requires=docker.service
 
 [Service]
 ExecStart=/usr/local/bin/kubelet \
-  --bootstrap-kubeconfig=/etc/kubernetes/bootstrap.conf \
+  --bootstrap-kubeconfig=/etc/kubernetes/bootstrap.kubeconfig \
   --kubeconfig=/etc/kubernetes/kubelet.kubeconfig \
   --config=/etc/kubernetes/kubelet-conf.yml \
   --cgroup-driver=systemd \
