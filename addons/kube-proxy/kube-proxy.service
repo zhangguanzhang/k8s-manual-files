@@ -6,8 +6,6 @@ After=network.target
 [Service]
 ExecStart=/usr/local/bin/kube-proxy \
   --config=/etc/kubernetes/kube-proxy.conf \
-  --conntrack-max=0 \
-  --conntrack-max-per-core=0 \
   --v=2
 
 Restart=always
