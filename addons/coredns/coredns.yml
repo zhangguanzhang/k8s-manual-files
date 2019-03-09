@@ -86,6 +86,7 @@ metadata:
     addonmanager.kubernetes.io/mode: Reconcile
     kubernetes.io/name: "CoreDNS"
 spec:
+  replicas: 2
   # replicas: not specified here:
   # 1. In order to make Addon Manager do not reconcile this replicas parameter.
   # 2. Default is 1.
@@ -123,6 +124,9 @@ spec:
             memory: 70Mi
         args: [ "-conf", "/etc/coredns/Corefile" ]
         volumeMounts:
+        - name: host-time
+          mountPath: /etc/localtime
+          readOnly: true
         - name: config-volume
           mountPath: /etc/coredns
           readOnly: true
@@ -160,6 +164,9 @@ spec:
           readOnlyRootFilesystem: true
       dnsPolicy: Default
       volumes:
+        - name: host-time
+          hostPath:
+            path: /etc/localtime
         - name: config-volume
           configMap:
             name: coredns

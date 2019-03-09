@@ -136,9 +136,19 @@ spec:
         command:
         - /usr/local/bin/kube-proxy
         - --config=/var/lib/kube-proxy/config.conf
+        - --hostname-override=$(NODE_NAME)
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
         securityContext:
           privileged: true
         volumeMounts:
+        - name: host-time
+          mountPath: /etc/localtime
+          readOnly: true
         - mountPath: /var/lib/kube-proxy
           name: kube-proxy
         - mountPath: /run/xtables.lock
@@ -147,6 +157,9 @@ spec:
           name: lib-modules
           readOnly: true
       volumes:
+      - name: host-time
+        hostPath:
+          path: /etc/localtime
       - configMap:
           defaultMode: 420
           name: kube-proxy
