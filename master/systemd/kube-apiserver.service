@@ -6,7 +6,7 @@ After=network.target
 [Service]
 ExecStart=/usr/local/bin/kube-apiserver \
   --authorization-mode=Node,RBAC \
-  --enable-admission-plugins=Initializers,DefaultStorageClass,DefaultTolerationSeconds,LimitRanger,NamespaceLifecycle,NodeRestriction,PersistentVolumeClaimResize,ResourceQuota,ServiceAccount,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,Priority \
+  --enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeClaimResize,DefaultStorageClass,DefaultTolerationSeconds,NodeRestriction,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota,Priority,PodPreset \
   --advertise-address={{ NODE_IP }} \
   --bind-address={{ NODE_IP }}  \
   --insecure-port=0 \
@@ -30,7 +30,7 @@ ExecStart=/usr/local/bin/kube-apiserver \
   --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt \
   --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key \
   --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname \
-  --runtime-config=api/all \
+  --runtime-config=api/all,settings.k8s.io/v1alpha1=true \
   --service-cluster-ip-range=10.96.0.0/12 \
   --service-node-port-range=30000-32767 \
   --service-account-key-file=/etc/kubernetes/pki/sa.pub \
