@@ -6,6 +6,7 @@ metadata:
   labels:
     kubernetes.io/bootstrapping: rbac-defaults
   name: system:kube-apiserver-to-kubelet
+  # 此处权限应该用内置的cluterrole system:kubelet-api-admin，没必要新建
 rules:
   - apiGroups:
       - ""
