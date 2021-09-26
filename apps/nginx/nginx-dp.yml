@@ -1,15 +1,30 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx
+  name: nginx-deployment
 spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 3
   template:
     metadata:
       labels:
         app: nginx
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values: ["nginx"]
+              topologyKey: kubernetes.io/hostname
       containers:
-      - image: nginx
-        name: nginx
+      - name: nginx
+        image: nginx:alpine
         ports:
         - containerPort: 80
